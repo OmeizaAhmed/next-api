@@ -21,19 +21,20 @@
 
 //   return <pre>{JSON.stringify(habit, null, 2)}</pre>
 // }
-import { createClient } from "@/lib/supabase/server"
+import { getUserHabits } from "@/app/action/action"
+import DeleteHabit from "./delete-habit"
 export default async function Page() {
-  const supabase = await createClient()
-  const { data: habits } = await supabase.from('habits').select()
+  const habits = await getUserHabits()
 
   const yourHabit = habits?.map((habit) => (
-    <li key={habit.id}>{habit.habit_name}</li>
+    <li key={habit.id}>{habit.habit_name} <DeleteHabit habit_id={habit.id}/></li>
   ))
 
   return (<section>
-    <h1>Your Habit</h1>
+    <h1 className="font-semibold text-xl md:text-2xl">Your Habit</h1>
+
     <ul className="list-decimal">
-      {yourHabit}
+    {yourHabit}
     </ul>
   </section>)
 }

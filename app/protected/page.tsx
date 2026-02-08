@@ -17,8 +17,10 @@ export default async function ProtectedPage() {
 
   return (
         <Suspense>
+          <div className="flex flex-col md:flex-row justify-between w-full">
           <Page />
           <AddHabit />
+          </div>
         </Suspense>
   );
 }
